@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | Leonardo Hotels</title>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── BRAND TOKENS (extracted from live site) ─────────────────── */
+    :root {
+      --primary:       #B5003B;
+      --primary-hover: #9a0032;
+      --dark:          #262626;
+      --gray-400:      #a8abb5;
+      --gray-500:      #9b9b9b;
+      --gray-600:      #616677;
+      --gray-700:      #495057;
+      --gray-800:      #343a40;
+      --border:        #a8abb5;
+      --border-light:  #dbdbdb;
+      --focus:         #00abd6;
+      --white:         #fff;
+      --body-bg:       #fff;
+      --font:          'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --radius:        3px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--dark);
+      background: var(--body-bg);
+      -webkit-text-size-adjust: 100%;
+    }
+
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── NAVBAR ──────────────────────────────────────────────────── */
+    .navbar {
+      background-color: var(--primary);
+      height: 50px;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+      box-shadow: 0 2px 8px rgba(0,0,0,.15);
+    }
+    .navbar-brand {
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: .5px;
+      text-decoration: none;
+    }
+    .navbar-links {
+      display: flex;
+      gap: 24px;
+      margin-left: 32px;
+    }
+    .navbar-links a {
+      color: rgba(255,255,255,.9);
+      font-size: .875rem;
+      text-decoration: none;
+    }
+    .navbar-links a:hover { color: #fff; text-decoration: underline; }
+
+    /* ── PAGE HEADER ─────────────────────────────────────────────── */
+    .page-header {
+      position: relative;
+      padding: 48px 24px 40px;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(140deg, #b5003b, #00abd6);
+      opacity: .12;
+      z-index: -1;
+    }
+    .page-header h1 {
+      font-size: 2.75rem;
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--dark);
+      margin: 0;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ── FORM CONTAINER ──────────────────────────────────────────── */
+    .form-section {
+      position: relative;
+      padding: 0 24px 64px;
+      z-index: 0;
+    }
+    .form-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(140deg, #b5003b, #00abd6);
+      opacity: .06;
+      z-index: -1;
+    }
+
+    .contact-form {
+      width: 556px;
+      max-width: 100%;
+      margin: 40px auto 0;
+    }
+
+    /* ── SANDBOX BANNER ──────────────────────────────────────────── */
+    .sandbox-banner {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: var(--radius);
+      padding: 8px 14px;
+      font-size: .8rem;
+      color: #856404;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .sandbox-banner code {
+      background: rgba(133,100,4,.1);
+      padding: 1px 4px;
+      border-radius: 2px;
+      font-size: .75rem;
+    }
+
+    /* ── FORM GROUPS ─────────────────────────────────────────────── */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group.required > label::before {
+      content: "*";
+      padding-inline-end: .25rem;
+      color: var(--primary);
+    }
+
+    label {
+      display: inline-block;
+      margin-bottom: .5rem;
+      font-size: .9375rem;
+      color: var(--dark);
+      font-weight: 400;
+    }
+
+    /* ── INPUTS ──────────────────────────────────────────────────── */
+    .form-control {
+      display: block;
+      width: 100%;
+      padding: .5rem 1.75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 2;
+      color: #44474d;
+      background-color: var(--white);
+      background-clip: padding-box;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      appearance: none;
+      transition: border-color .15s ease-in-out;
+      font-family: var(--font);
+    }
+    .form-control::placeholder { color: var(--gray-600); }
+    .form-control:hover { border-color: #44474d; }
+    .form-control:focus {
+      outline: 0;
+      border-color: var(--focus);
+      color: #44474d;
+    }
+    .form-control:disabled {
+      color: var(--gray-400);
+      border-color: var(--border-light);
+    }
+    .form-control.is-invalid {
+      border-color: var(--primary);
+      background-color: rgba(181,0,59,.05);
+    }
+
+    /* SELECT */
+    .form-select {
+      display: block;
+      width: 100%;
+      padding: .5rem 3.5rem .5rem 1.75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 2;
+      color: #44474d;
+      background-color: var(--white);
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23616677' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 1.75rem center;
+      background-size: 16px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      appearance: none;
+      transition: border-color .15s ease-in-out;
+      font-family: var(--font);
+    }
+    .form-select:hover { border-color: #44474d; }
+    .form-select:focus { outline: 0; border-color: var(--focus); }
+    .form-select.is-invalid { border-color: var(--primary); }
+
+    /* Validation message */
+    .invalid-feedback {
+      display: none;
+      font-size: .875rem;
+      color: var(--primary);
+      margin-top: .25rem;
+    }
+    .invalid-feedback.show { display: block; }
+
+    /* ── CHECKBOXES ──────────────────────────────────────────────── */
+    .form-check {
+      position: relative;
+      display: block;
+      min-height: 1.5rem;
+      padding-inline-start: 1.75em;
+      margin-bottom: .75rem;
+    }
+    .form-check-input {
+      position: absolute;
+      z-index: -1;
+      opacity: 0;
+      width: 1em;
+      height: 1em;
+      margin-top: .25em;
+      inset-inline-start: 0;
+    }
+    .form-check-label {
+      cursor: pointer;
+      font-size: .875rem;
+      color: var(--dark);
+      padding-inline-start: .25rem;
+    }
+    .form-check-label::before,
+    .form-check-label::after {
+      content: "";
+      position: absolute;
+      border-radius: var(--radius);
+      display: block;
+      width: 1rem;
+      height: 1rem;
+      inset-inline-start: 0;
+      top: .25em;
+    }
+    .form-check-label::before {
+      border: 1px solid var(--border);
+      background-color: var(--white);
+      transition: background-color .15s ease-in-out, border-color .15s ease-in-out;
+    }
+    .form-check-label::after {
+      background: no-repeat 50%/50% 50%;
+    }
+    .form-check-input:checked ~ .form-check-label::before {
+      border-color: var(--border);
+    }
+    .form-check-input:checked ~ .form-check-label::after {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23a8abb5' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E");
+    }
+    .form-check-input:focus ~ .form-check-label::before {
+      box-shadow: 0 0 0 .2rem rgba(181,0,59,.25);
+    }
+    .form-check-label a { color: var(--primary); }
+
+    /* ── SUBMIT BUTTON ───────────────────────────────────────────── */
+    .btn-primary {
+      display: block;
+      width: 100%;
+      padding: .75rem 1.75rem;
+      font-family: var(--font);
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1;
+      color: var(--white);
+      text-align: center;
+      background-color: var(--primary);
+      border: 1px solid var(--primary);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background-color .15s ease-in-out;
+      white-space: nowrap;
+      appearance: none;
+      margin-top: 1rem;
+    }
+    .btn-primary:hover { background-color: var(--primary-hover); border-color: var(--primary-hover); }
+    .btn-primary:active { transform: scale(.99); }
+
+    /* ── FOOTER ──────────────────────────────────────────────────── */
+    .site-footer {
+      border-top: 1px solid var(--border-light);
+      padding: 24px;
+      font-size: .8rem;
+      color: var(--gray-700);
+      text-align: center;
+    }
+    .site-footer a { color: var(--gray-700); text-decoration: underline; }
+
+    /* ── DEV NOTE ────────────────────────────────────────────────── */
+    .dev-note {
+      max-width: 556px;
+      margin: 0 auto 32px;
+      background: #f8f5ff;
+      border: 1px dashed #c9b8e8;
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      font-size: .75rem;
+      color: #5a4570;
+      line-height: 1.8;
+    }
+    .dev-note strong { display: block; margin-bottom: 4px; font-weight: 600; }
+    .dev-note code {
+      background: #ede8f5;
+      padding: 1px 4px;
+      border-radius: 2px;
+      font-family: monospace;
+      font-size: .7rem;
+    }
+
+    @media (max-width: 600px) {
+      .page-header h1 { font-size: 1.75rem; }
+      .navbar-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TEST BANNER -->
+  <div style="background:#856404;color:#fff;text-align:center;padding:10px 16px;font-family:Figtree,sans-serif;font-size:13px;letter-spacing:.3px;position:sticky;top:0;z-index:2000;">
+    <strong>⚠ TEST ENVIRONMENT</strong> — Posts to <strong>Salesforce Sandbox</strong>. Submissions create real Lead records in sandbox only. Do not use real client data.
+  </div>
+
+  <!-- ── NAVBAR ──────────────────────────────────────────────────── -->
+  <nav class="navbar">
+    <a href="#" class="navbar-brand">Leonardo</a>
+    <div class="navbar-links">
+      <a href="#">Hotels</a>
+      <a href="#">Meetings &amp; Events</a>
+      <a href="#">My Bookings</a>
+      <a href="#">AdvantageCLUB</a>
+      <a href="#">Corporate Account</a>
+    </div>
+  </nav>
+
+  <!-- ── PAGE HEADER ─────────────────────────────────────────────── -->
+  <div class="page-header">
+    <h1>How can we help?</h1>
+  </div>
+
+  <!-- ── FORM SECTION ────────────────────────────────────────────── -->
+  <div class="form-section">
+
+    <!-- Dev note -->
+    <div class="dev-note">
+      <strong>🔧 Sandbox Test Mode — Remove before production</strong>
+      Posts to: <code>test.salesforce.com</code> &nbsp;|&nbsp;
+      Org: <code>00Dbh0000022wLJ</code> &nbsp;|&nbsp;
+      Change form action URL to <code>webto.salesforce.com</code> for production.
+    </div>
+
+    <div class="contact-form">
+
+      <form
+        id="corporateForm"
+        action="https://test.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00Dbh0000022wLJ"
+        method="POST"
+        novalidate
+      >
+
+        <!-- ══ HIDDEN SALESFORCE FIELDS ══════════════════════════════ -->
+        <input type="hidden" name="oid"          value="00Dbh0000022wLJ" />
+        <input type="hidden" name="retURL"       value="https://www.leonardo-hotels.com/contact/thank-you" />
+        <input type="hidden" name="lead_source"  value="LH Website Request" />
+        <input type="hidden" name="status"       value="Open" />
+        <!-- Unit → CE (replace 00Nbh000003Wpld with verified param ID) -->
+        <input type="hidden" name="00Nbh000003Wpld" value="CE" />
+
+        <!-- First name -->
+        <div class="form-group required">
+          <label for="first_name">First name</label>
+          <input type="text" class="form-control" id="first_name" name="first_name" placeholder="" />
+          <div class="invalid-feedback" id="err_first_name">This field is required.</div>
+        </div>
+
+        <!-- Last name -->
+        <div class="form-group required">
+          <label for="last_name">Last name</label>
+          <input type="text" class="form-control" id="last_name" name="last_name" placeholder="" />
+          <div class="invalid-feedback" id="err_last_name">This field is required.</div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group required">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="" />
+          <div class="invalid-feedback" id="err_email">Please enter a valid email address.</div>
+        </div>
+
+        <!-- Telephone -->
+        <div class="form-group">
+          <label for="phone">Telephone</label>
+          <input type="tel" class="form-control" id="phone" name="phone" placeholder="" />
+        </div>
+
+        <!-- Subject (hidden metadata — Corporate World) -->
+        <div class="form-group required">
+          <label for="messageSubject">Subject</label>
+          <select class="form-select" id="messageSubject" name="messageSubject">
+            <option value="" disabled selected hidden>Choose </option>
+            <option value="Corporate World" selected>Corporate World</option>
+          </select>
+        </div>
+
+        <!-- Company -->
+        <div class="form-group required">
+          <label for="company">Company</label>
+          <input type="text" class="form-control" id="company" name="company" placeholder="" />
+          <div class="invalid-feedback" id="err_company">This field is required.</div>
+        </div>
+
+        <!-- Number of employees → No. of Traveling Employees -->
+        <div class="form-group">
+          <label for="traveling_employees">Number of employees</label>
+          <input
+            type="text"
+            class="form-control"
+            id="traveling_employees"
+            name="00N20000001Eprg"
+             placeholder=""
+          />
+        </div>
+
+        <!-- Street -->
+        <div class="form-group required">
+          <label for="street">Street</label>
+          <textarea
+            class="form-control"
+            id="street"
+            name="street"
+            rows="2"
+            style="resize:vertical; line-height:1.5; padding-top:.75rem; padding-bottom:.75rem;"
+          ></textarea>
+          <div class="invalid-feedback" id="err_street">This field is required.</div>
+        </div>
+
+        <!-- City + Zip -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:1.5rem;">
+          <div class="form-group required" style="margin-bottom:0;">
+            <label for="city">City</label>
+            <input type="text" class="form-control" id="city" name="city" />
+            <div class="invalid-feedback" id="err_city">This field is required.</div>
+          </div>
+          <div class="form-group required" style="margin-bottom:0;">
+            <label for="zip">Zip</label>
+            <input type="text" class="form-control" id="zip" name="zip" />
+            <div class="invalid-feedback" id="err_zip">This field is required.</div>
+          </div>
+        </div>
+
+        <!-- Country -->
+        <div class="form-group required">
+          <label for="country_code">Country</label>
+          <select class="form-select" id="country_code" name="country_code">
+            <option value="">Choose </option>
+            <optgroup label="Central Europe">
+              <option value="AT">Austria</option>
+              <option value="CZ">Czech Republic</option>
+              <option value="DE">Germany</option>
+              <option value="HU">Hungary</option>
+              <option value="PL">Poland</option>
+              <option value="SK">Slovakia</option>
+              <option value="CH">Switzerland</option>
+            </optgroup>
+            <optgroup label="Benelux">
+              <option value="BE">Belgium</option>
+              <option value="NL">Netherlands</option>
+              <option value="LU">Luxembourg</option>
+            </optgroup>
+            <optgroup label="UK &amp; Ireland">
+              <option value="GB">United Kingdom</option>
+              <option value="IE">Ireland</option>
+            </optgroup>
+            <optgroup label="Other">
+              <option value="CY">Cyprus</option>
+              <option value="IL">Israel</option>
+              <option value="ES">Spain</option>
+              <option value="IT">Italy</option>
+              <option value="FR">France</option>
+              <option value="US">United States</option>
+              <option value="AE">United Arab Emirates</option>
+            </optgroup>
+          </select>
+          <div class="invalid-feedback" id="err_country">Please select a country.</div>
+        </div>
+
+        <!-- Estimated Yearly Travel Volume -->
+        <div class="form-group required">
+          <label for="est_travel_volume">Estimated Yearly Travel Volume</label>
+          <input
+            type="number"
+            class="form-control"
+            id="est_travel_volume"
+            name="00Nbh000004w1Cj"
+            min="0"
+            placeholder=""
+          />
+          <div class="invalid-feedback" id="err_est_travel_volume">This field is required.</div>
+        </div>
+
+        <!-- Destination / city name → concatenated into description -->
+        <div class="form-group required">
+          <label for="destination">Destination / city name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="destination"
+            name="destination_city_ui"
+            placeholder=""
+          />
+          <div class="invalid-feedback" id="err_destination">Please enter at least one destination.</div>
+        </div>
+
+        <!-- Additional Information → also goes to description -->
+        <div class="form-group">
+          <label for="additional_info">Additional Information</label>
+          <textarea
+            class="form-control"
+            id="additional_info"
+            name="additional_info_ui"
+            rows="4"
+            placeholder=""
+            style="resize:vertical; line-height:1.5; padding-top:.75rem; padding-bottom:.75rem;"
+          ></textarea>
+        </div>
+
+        <!-- Hidden description field populated by JS -->
+        <input type="hidden" name="description" id="description_combined" />
+
+        <!-- ══ GDPR CHECKBOXES ════════════════════════════════════════ -->
+
+        <!-- Marketing Consent (optional) -->
+        <div class="form-check" style="margin-top:1.5rem;">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="marketing_consent"
+            name="00Nbh000004w1EL"
+            value="1"
+          />
+          <label class="form-check-label" for="marketing_consent">
+            I have read and accept the conditions as defined in the
+            <a href="https://www.leonardo-hotels.com/privacy-notice-and-cookie-policy" target="_blank">
+              Privacy Policy in Central Europe and Benelux
+            </a>
+            and agree to receive marketing emails from the Leonardo Hotels
+          </label>
+        </div>
+
+        <!-- Privacy Policy (required) -->
+        <div class="form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="privacy_policy"
+            name="00Nbh000004w1Fx"
+            value="1"
+          />
+          <label class="form-check-label" for="privacy_policy">
+            I have read and agree to the
+            <a href="https://www.leonardo-hotels.com/privacy-notice-and-cookie-policy" target="_blank">
+              privacy policy
+            </a>
+          </label>
+        </div>
+        <div class="invalid-feedback" id="err_privacy" style="margin-top:-.5rem; margin-bottom:.75rem;">
+          You must accept the privacy policy to continue.
+        </div>
+
+        <!-- Submit -->
+        <div class="form-group required" style="margin-top:1rem;">
+          <button type="submit" class="btn-primary">Submit</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ───────────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    © 2026 Leonardo Hotels. All rights reserved. &nbsp;|&nbsp;
+    <a href="#">Imprint</a> &nbsp;|&nbsp;
+    <a href="#">Privacy Notice</a> &nbsp;|&nbsp;
+    <a href="#">Terms And Conditions</a>
+  </footer>
+
+  <!-- ── JAVASCRIPT ───────────────────────────────────────────────── -->
+  <script>
+    const form = document.getElementById('corporateForm');
+
+    function setError(id, errId, show) {
+      const el  = document.getElementById(id);
+      const err = document.getElementById(errId);
+      if (!el || !err) return;
+      el.classList.toggle('is-invalid', show);
+      err.classList.toggle('show', show);
+    }
+
+    function validEmail(v) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    }
+
+    // Inline blur validation
+    ['first_name','last_name','company','street','city','zip'].forEach(id => {
+      document.getElementById(id).addEventListener('blur', function() {
+        setError(id, 'err_' + id, !this.value.trim());
+      });
+    });
+    document.getElementById('email').addEventListener('blur', function() {
+      setError('email', 'err_email', !validEmail(this.value.trim()));
+    });
+    document.getElementById('country_code').addEventListener('blur', function() {
+      setError('country_code', 'err_country', !this.value);
+    });
+    document.getElementById('est_travel_volume').addEventListener('blur', function() {
+      setError('est_travel_volume', 'err_est_travel_volume', !this.value.trim());
+    });
+    document.getElementById('destination').addEventListener('blur', function() {
+      setError('destination', 'err_destination', !this.value.trim());
+    });
+
+    form.addEventListener('submit', function(e) {
+      let valid = true;
+
+      const checks = [
+        { id: 'first_name',       errId: 'err_first_name',       test: v => !!v.trim() },
+        { id: 'last_name',        errId: 'err_last_name',        test: v => !!v.trim() },
+        { id: 'email',            errId: 'err_email',            test: v => validEmail(v.trim()) },
+        { id: 'company',          errId: 'err_company',          test: v => !!v.trim() },
+        { id: 'street',          errId: 'err_street',          test: v => !!v.trim() },
+        { id: 'city',            errId: 'err_city',            test: v => !!v.trim() },
+        { id: 'zip',             errId: 'err_zip',             test: v => !!v.trim() },
+        { id: 'country_code',     errId: 'err_country',          test: v => !!v },
+        { id: 'est_travel_volume',errId: 'err_est_travel_volume',test: v => !!v.trim() },
+        { id: 'destination',      errId: 'err_destination',      test: v => !!v.trim() },
+      ];
+
+      checks.forEach(c => {
+        const fail = !c.test(document.getElementById(c.id).value);
+        setError(c.id, c.errId, fail);
+        if (fail) valid = false;
+      });
+
+      // Privacy policy required
+      const pp    = document.getElementById('privacy_policy');
+      const ppErr = document.getElementById('err_privacy');
+      if (!pp.checked) {
+        ppErr.classList.add('show');
+        valid = false;
+      } else {
+        ppErr.classList.remove('show');
+      }
+
+      if (!valid) {
+        e.preventDefault();
+        const first = form.querySelector('.is-invalid');
+        if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      // Concatenate destination + additional info → description
+      const dest = document.getElementById('destination').value.trim();
+      const info = document.getElementById('additional_info').value.trim();
+      let combined = '';
+      if (dest) combined += 'Destination/City: ' + dest;
+      if (info) combined += (combined ? '\n\nAdditional Information: ' : 'Additional Information: ') + info;
+      document.getElementById('description_combined').value = combined;
+    });
+  </script>
+
+</body>
+</html>
